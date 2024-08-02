@@ -33,7 +33,7 @@ export const useDispatch: () => AppDispatch = () => dispatchHook();
 export const useSelector: TypedUseSelectorHook<RootState> = selectorHook;
 
 export const searchIngredientModalData = (id: string) => (state: RootState) =>
-  state.Ingredient.ingridients.find((ingredient) => {
+  state.ingredient.ingredients.find((ingredient) => {
     if (ingredient._id === id) {
       return ingredient;
     }

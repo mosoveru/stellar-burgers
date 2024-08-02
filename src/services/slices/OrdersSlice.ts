@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { TOrder } from '../../utils/types';
-import { getFeedsApi, getOrderByNumberApi } from '../../utils/burger-api';
+import { getFeedsApi } from '../../utils/burger-api';
 
 type TOrdersSlice = {
   total: number;

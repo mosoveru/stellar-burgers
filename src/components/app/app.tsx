@@ -19,20 +19,13 @@ import '../../index.css';
 import styles from './app.module.css';
 
 import { AppHeader } from '@components';
-import {
-  Navigate,
-  Route,
-  Routes,
-  useLocation,
-  useNavigate,
-  useParams
-} from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { getUserOrders, getUserThunk } from '../../services/slices/UserSlice';
 import { useDispatch } from '../../services/store/store';
 import { ModalWrapper } from '../modal-wrapper/modal-wrapper';
 import { ModalPage } from '../../pages/modal-page/modal-page';
-import { getIngridients } from '../../services/slices/IngredientsSlice';
+import { getIngredients } from '../../services/slices/IngredientsSlice';
 import { removeModalData } from '../../services/slices/ModalDataSlice';
 import { getOrders } from '../../services/slices/OrdersSlice';
 
@@ -42,7 +35,7 @@ const App = () => {
   useEffect(() => {
     if (firstInit) {
       dispatch(getOrders());
-      dispatch(getIngridients());
+      dispatch(getIngredients());
       dispatch(getUserThunk());
       dispatch(getUserOrders());
       firstInit = false;

@@ -182,8 +182,6 @@ export const userSlice = createSlice({
   }
 });
 
-//TODO: Посмотреть обновление в реальном времени ленты заказов и заказов пользователя
-
 export const { setOrderRequest, clearCurrentOrder } = userSlice.actions;
 export const {
   getUserData,

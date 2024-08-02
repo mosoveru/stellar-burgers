@@ -8,7 +8,6 @@ import {
 } from '../../services/slices/UserSlice';
 
 export const ProfileOrders: FC = () => {
-  /** TODO: взять переменную из стора */
   const orders: TOrder[] = useSelector(userOrdersSelector);
   const dispatch = useDispatch();
   if (orders.length === 0) {

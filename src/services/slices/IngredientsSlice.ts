@@ -3,7 +3,7 @@ import { TIngredient } from '../../utils/types';
 import { getIngredientsApi } from '../../utils/burger-api';
 
 type TIngredientsSlice = {
-  ingridients: TIngredient[];
+  ingredients: TIngredient[];
   bun: TIngredient[];
   sauce: TIngredient[];
   main: TIngredient[];
@@ -13,23 +13,23 @@ type TIngredientsSlice = {
 type TIngredientType = 'bun' | 'main' | 'sauce';
 
 const initialState: TIngredientsSlice = {
-  ingridients: [],
+  ingredients: [],
   bun: [],
   sauce: [],
   main: [],
   isGettingIngredients: false
 };
 
-export const getIngridients = createAsyncThunk('ingridients', async () =>
+export const getIngredients = createAsyncThunk('ingridients', async () =>
   getIngredientsApi()
 );
 
 export const ingredientSlice = createSlice({
-  name: 'Ingredient',
+  name: 'ingredient',
   initialState,
   reducers: {},
   selectors: {
-    ingredientsSelector: (state) => state.ingridients,
+    ingredientsSelector: (state) => state.ingredients,
     bunsSelector: (state) => state.bun,
     saucesSelector: (state) => state.sauce,
     mainsSelector: (state) => state.main,
@@ -37,17 +37,17 @@ export const ingredientSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getIngridients.pending, (state) => {
+      .addCase(getIngredients.pending, (state) => {
         state.isGettingIngredients = true;
       })
-      .addCase(getIngridients.fulfilled, (state, action) => {
-        state.ingridients = action.payload;
-        action.payload.forEach((ingridient) => {
-          state[ingridient.type as TIngredientType].push(ingridient);
+      .addCase(getIngredients.fulfilled, (state, action) => {
+        state.ingredients = action.payload;
+        action.payload.forEach((ingredient) => {
+          state[ingredient.type as TIngredientType].push(ingredient);
         });
         state.isGettingIngredients = false;
       })
-      .addCase(getIngridients.rejected, (state, action) => {
+      .addCase(getIngredients.rejected, (state, action) => {
         state.isGettingIngredients = false;
         console.log(action.error);
       });

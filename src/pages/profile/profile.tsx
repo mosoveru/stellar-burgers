@@ -9,7 +9,6 @@ import {
 } from '../../services/slices/UserSlice';
 
 export const Profile: FC = () => {
-  /** TODO: взять переменную из стора */
   const userName = useSelector(getUserName);
   const userEmail = useSelector(getUserEmail);
   const dispatch = useDispatch();

@@ -8,17 +8,13 @@ import {
   useSelector
 } from '../../services/store/store';
 import { ingredientsSelector } from '../../services/slices/IngredientsSlice';
-import {
-  ingredientModalDataSelector,
-  setIngredientModalData
-} from '../../services/slices/ModalDataSlice';
+import { setIngredientModalData } from '../../services/slices/ModalDataSlice';
 
 type Params = {
   id: string;
 };
 
 export const IngredientDetails: FC = () => {
-  /** TODO: взять переменную из стора */
   const dispatch = useDispatch();
   const params = useParams<Params>() as Params;
   const ingredients = useSelector(ingredientsSelector);
