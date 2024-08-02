@@ -4,11 +4,14 @@ import { IngredientDetailsUI } from '../ui/ingredient-details';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import {
+  searchIngredientModalData,
+  useSelector
+} from '../../services/store/store';
+import { ingredientsSelector } from '../../services/slices/IngredientsSlice';
+import {
   ingredientModalDataSelector,
-  ingridientsSelector,
-  searchIngredientModalData
-} from '../../services/slices/UserSlice';
-import { useSelector } from '../../services/store/store';
+  setIngredientModalData
+} from '../../services/slices/ModalDataSlice';
 
 type Params = {
   id: string;
@@ -18,11 +21,11 @@ export const IngredientDetails: FC = () => {
   /** TODO: взять переменную из стора */
   const dispatch = useDispatch();
   const params = useParams<Params>() as Params;
-  const ingredients = useSelector(ingridientsSelector);
-  const ingredientData = useSelector(ingredientModalDataSelector);
+  const ingredients = useSelector(ingredientsSelector);
+  const ingredientData = useSelector(searchIngredientModalData(params.id));
 
   if (ingredients.length !== 0) {
-    dispatch(searchIngredientModalData(params.id));
+    dispatch(setIngredientModalData(ingredientData));
   }
 
   if (!ingredientData) {

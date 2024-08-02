@@ -28,12 +28,13 @@ import {
   useParams
 } from 'react-router-dom';
 import { useEffect } from 'react';
-import { getOrders, removeModalData } from '../../services/slices/UserSlice';
-import { getIngridients } from '../../services/slices/UserSlice';
 import { getUserOrders, getUserThunk } from '../../services/slices/UserSlice';
 import { useDispatch } from '../../services/store/store';
 import { ModalWrapper } from '../modal-wrapper/modal-wrapper';
 import { ModalPage } from '../../pages/modal-page/modal-page';
+import { getIngridients } from '../../services/slices/IngredientsSlice';
+import { removeModalData } from '../../services/slices/ModalDataSlice';
+import { getOrders } from '../../services/slices/OrdersSlice';
 
 const App = () => {
   const dispatch = useDispatch();

@@ -1,5 +1,8 @@
 import { Outlet, useLocation } from 'react-router-dom';
-import { isRequestPending, getUserData } from '../../services/slices/UserSlice';
+import {
+  isGettingUserSelector,
+  getUserData
+} from '../../services/slices/UserSlice';
 import { useSelector } from '../../services/store/store';
 import { Preloader } from '@ui';
 import { Navigate } from 'react-router-dom';
@@ -9,7 +12,7 @@ type ProtectedRouteProps = {
 };
 
 export const ProtectedRoute = ({ onlyUnAuth }: ProtectedRouteProps) => {
-  const isChecking = useSelector(isRequestPending);
+  const isChecking = useSelector(isGettingUserSelector);
   const user = useSelector(getUserData);
   const location = useLocation();
 

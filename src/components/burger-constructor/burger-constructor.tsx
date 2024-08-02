@@ -3,39 +3,50 @@ import { TConstructorIngredient } from '@utils-types';
 import { BurgerConstructorUI } from '@ui';
 import { useDispatch, useSelector } from '../../services/store/store';
 import {
-  constructorOrderSelector,
+  clearCurrentOrder,
+  currentOrderSelector,
   getUserName,
-  ingredientsIDSelector,
+  getUserOrders,
   isOrderRequestPendingSelector,
   orderBurger,
-  orderModalDataSelector,
-  removeModalData,
   setOrderRequest
 } from '../../services/slices/UserSlice';
+import { useLocation, useNavigate } from 'react-router-dom';
+import {
+  clearConstructor,
+  constructorOrderSelector,
+  ingredientsIDSelector
+} from '../../services/slices/ConstructorSlice';
+import { getOrders } from '../../services/slices/OrdersSlice';
 
 export const BurgerConstructor: FC = () => {
   /** TODO: взять переменные constructorItems, orderRequest и orderModalData из стора */
   const constructorItems = useSelector(constructorOrderSelector);
-
   const orderRequest = useSelector(isOrderRequestPendingSelector);
-
-  const orderModalData = useSelector(orderModalDataSelector);
-
+  const orderModalData = useSelector(currentOrderSelector);
   const ingredientsIDs = useSelector(ingredientsIDSelector);
-
   const userName = useSelector(getUserName);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  if (orderModalData) {
+    dispatch(getOrders());
+    dispatch(getUserOrders());
+  }
 
   const onOrderClick = () => {
-    if (!constructorItems.bun || orderRequest || !userName) return;
+    if (!constructorItems.bun || orderRequest) return;
+    if (!userName) navigate('/login', { state: { from: location } });
     dispatch(orderBurger(ingredientsIDs));
   };
   const closeOrderModal = () => {
     if (orderRequest) {
       dispatch(setOrderRequest(false));
     } else {
-      dispatch(removeModalData());
+      dispatch(clearCurrentOrder());
+      dispatch(clearConstructor());
     }
   };
 
