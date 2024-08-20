@@ -193,3 +193,4 @@ export const {
   isGettingUserSelector,
   currentOrderSelector
 } = userSlice.selectors;
+export default userSlice.reducer;
