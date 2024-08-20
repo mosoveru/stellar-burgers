@@ -10,7 +10,7 @@ type TConstructorSlice = {
   constructorOrder: TConstructorOrder;
 };
 
-const initialState: TConstructorSlice = {
+export const initialState: TConstructorSlice = {
   constructorOrder: {
     bun: null,
     ingredients: []

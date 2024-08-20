@@ -12,7 +12,7 @@ type TIngredientsSlice = {
 
 type TIngredientType = 'bun' | 'main' | 'sauce';
 
-const initialState: TIngredientsSlice = {
+export const initialState: TIngredientsSlice = {
   ingredients: [],
   bun: [],
   sauce: [],

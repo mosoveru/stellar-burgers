@@ -9,7 +9,7 @@ type TModalDataSlice = {
   isGettingOrder: boolean;
 };
 
-const initialState: TModalDataSlice = {
+export const initialState: TModalDataSlice = {
   orderModalData: null,
   ingredientModalData: undefined,
   isGettingOrder: false

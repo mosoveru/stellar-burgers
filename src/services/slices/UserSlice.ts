@@ -58,7 +58,7 @@ const processOrderRejectedThunk: CaseReducer<
   console.log(action.error);
 };
 
-const initialState: TUserSlice = {
+export const initialState: TUserSlice = {
   currentOrder: null,
   user: {},
   orders: [],
@@ -193,3 +193,4 @@ export const {
   isGettingUserSelector,
   currentOrderSelector
 } = userSlice.selectors;
+export default userSlice.reducer;
