@@ -8,21 +8,13 @@ import reducer, {
   getUserOrders,
   orderBurger,
   setOrderRequest,
-  clearCurrentOrder
+  clearCurrentOrder,
+  initialState
 } from './UserSlice';
 import { user, registeredUser, feed, newOrder } from './TestingData';
 import { getCookie, setCookie } from '../../utils/cookie';
 
 describe('Тест UserSlice', () => {
-  const initialState = {
-    currentOrder: null,
-    user: {},
-    orders: [],
-    isOrderRequestPending: false,
-    isGettingOrders: false,
-    isGettingUser: false
-  };
-
   test('Тест вызова getUserThunk', () => {
     global.fetch = jest.fn(() => {
       return Promise.resolve({

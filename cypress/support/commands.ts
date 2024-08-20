@@ -24,14 +24,51 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
-//
-// declare global {
-//   namespace Cypress {
-//     interface Chainable {
-//       login(email: string, password: string): Chainable<void>
-//       drag(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       dismiss(subject: string, options?: Partial<TypeOptions>): Chainable<Element>
-//       visit(originalFn: CommandOriginalFn, url: string, options: Partial<VisitOptions>): Chainable<Element>
-//     }
-//   }
-// }
+
+type TConstructorSelector = {
+  topSelector: string;
+  bottomSelector: string;
+  toppingSelector: string;
+};
+
+declare namespace Cypress {
+  interface Chainable {
+    dataCy(value: string): Chainable<JQuery<HTMLElement>>;
+    exist(value: string): Chainable<JQuery<HTMLElement>>;
+    notExist(value: string): Chainable<JQuery<HTMLElement>>;
+    addToConstructor(value: string): Chainable;
+    checkConstructorIsFilled(value: TConstructorSelector): Chainable;
+    checkConstructorIsEmpty(value: TConstructorSelector): Chainable;
+  }
+}
+
+Cypress.Commands.add('dataCy', (value) => {
+  return cy.get(`[data-Cy=${value}]`);
+});
+
+Cypress.Commands.add('exist', (value) => {
+  cy.get(`[data-Cy=${value}]`).should('exist');
+});
+
+Cypress.Commands.add('notExist', (value) => {
+  cy.get(`[data-Cy=${value}]`).should('not.exist');
+});
+
+Cypress.Commands.add('addToConstructor', (value) => {
+  cy.get(`[data-Cy=${value}]`).each((element) => {
+    cy.wrap(element).find('button').as('addButton');
+    cy.get('@addButton').click();
+  });
+});
+
+Cypress.Commands.add('checkConstructorIsFilled', (value) => {
+  cy.exist(value.topSelector);
+  cy.exist(value.toppingSelector);
+  cy.exist(value.bottomSelector);
+});
+
+Cypress.Commands.add('checkConstructorIsEmpty', (value) => {
+  cy.notExist(value.topSelector);
+  cy.notExist(value.toppingSelector);
+  cy.notExist(value.bottomSelector);
+});

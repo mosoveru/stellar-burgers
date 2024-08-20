@@ -3,7 +3,8 @@ import reducer, {
   getOrderByNumber,
   removeModalData,
   setIngredientModalData,
-  setOrderModalData
+  setOrderModalData,
+  initialState
 } from './ModalDataSlice';
 import { order, ingredient } from './TestingData';
 
@@ -12,12 +13,6 @@ afterAll(() => {
 });
 
 describe('Тест ModalDataSlice', () => {
-  const initialState = {
-    orderModalData: null,
-    ingredientModalData: undefined,
-    isGettingOrder: false
-  };
-
   test('Тест вызова getOrderByNumber', () => {
     global.fetch = jest.fn(() => {
       return Promise.resolve({

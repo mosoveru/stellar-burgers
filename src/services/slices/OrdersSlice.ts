@@ -9,7 +9,7 @@ type TOrdersSlice = {
   isGettingOrders: boolean;
 };
 
-const initialState: TOrdersSlice = {
+export const initialState: TOrdersSlice = {
   feedOrders: [],
   total: 0,
   totalToday: 0,

@@ -1,22 +1,30 @@
 describe('Тест страницы конструктора', () => {
   const url = Cypress.env().BURGER_API_URL;
+  const constructorPageSelector = 'ConstructorPage';
+  const noTopBunSelector = 'noTopBun';
+  const noBottomBunSelector = 'noBottomBun';
+  const noToppingsSelector = 'noTopings';
+  const constructorSelector = {
+    topSelector: noTopBunSelector,
+    bottomSelector: noBottomBunSelector,
+    toppingSelector: noToppingsSelector
+  };
+  const modalSelector = 'Modal';
+  const openModalSelector = 'OpenModal';
+  const ingredientSelector = 'Ingredient';
 
   it('Тест добавления ингредиентов в конструктор', () => {
     cy.intercept(
       { hostname: url, path: '/api/ingredients' },
       { fixture: 'ingredients.json' }
     ).as('getIndredients');
-    cy.visit('http://localhost:4000/');
-    cy.get('[data-cy=ConstructorPage]').should('exist');
+    cy.visit('/');
+    cy.exist(constructorPageSelector);
     cy.wait('@getIndredients');
 
-    cy.get('[data-cy=Ingredient]').each((element) => {
-      cy.wrap(element).find('button').click();
-    });
+    cy.addToConstructor(ingredientSelector);
 
-    cy.get('[data-cy=noTopBun]').should('not.exist');
-    cy.get('[data-cy=noTopings]').should('not.exist');
-    cy.get('[data-cy=noBottomBun]').should('not.exist');
+    cy.checkConstructorIsEmpty(constructorSelector);
   });
 
   it('Тест открытия модального окна', () => {
@@ -24,13 +32,14 @@ describe('Тест страницы конструктора', () => {
       { hostname: url, path: '/api/ingredients' },
       { fixture: 'ingredients.json' }
     ).as('getIndredients');
-    cy.visit('http://localhost:4000/');
-    cy.get('[data-cy=ConstructorPage]').should('exist');
+    cy.visit('/');
+    cy.exist(constructorPageSelector);
     cy.wait('@getIndredients');
-    cy.get('[data-cy=OpenModal]').first().click();
-    cy.get('[data-cy=Modal]').should('exist');
-    cy.get('[data-cy=Modal]').find('button').click().and('not.exist');
-    cy.get('[data-cy=OpenModal]').first().click();
+
+    cy.dataCy(openModalSelector).first().click();
+    cy.exist(modalSelector);
+    cy.dataCy(modalSelector).find('button').click().and('not.exist');
+    cy.dataCy(openModalSelector).first().click();
     cy.get('[data-cy=Overlay]').click(5, 5, { force: true }).and('not.exist');
   });
 
@@ -48,30 +57,23 @@ describe('Тест страницы конструктора', () => {
       { hostname: url, path: '/api/orders' },
       { fixture: 'order.json' }
     ).as('getOrder');
-    cy.visit('http://localhost:4000/');
-    cy.get('[data-cy=ConstructorPage]').should('exist');
+    cy.visit('/');
+    cy.exist(constructorPageSelector);
     cy.wait('@getIndredients');
     cy.wait('@getUser');
 
-    cy.get('[data-cy=Ingredient]').each((element) => {
-      cy.wrap(element).find('button').click();
-    });
+    cy.addToConstructor(ingredientSelector);
 
-    cy.get('[data-cy=noTopBun]').should('not.exist');
-    cy.get('[data-cy=noTopings]').should('not.exist');
-    cy.get('[data-cy=noBottomBun]').should('not.exist');
+    cy.checkConstructorIsEmpty(constructorSelector);
 
-    cy.get('[data-cy=MakeOrder]').click();
+    cy.dataCy('MakeOrder').click();
     cy.wait('@getOrder');
-    cy.get('[data-cy=Modal]')
-      .should('exist')
-      .find('h2')
-      .should('have.text', '777');
-    cy.get('[data-cy=Modal]').find('button').click();
-    cy.get('[data-cy=Modal]').should('not.exist');
 
-    cy.get('[data-cy=noTopBun]').should('exist');
-    cy.get('[data-cy=noTopings]').should('exist');
-    cy.get('[data-cy=noBottomBun]').should('exist');
+    cy.exist(modalSelector).find('h2').should('have.text', '777');
+    cy.dataCy(modalSelector).find('button').as('closeButton');
+    cy.get('@closeButton').click();
+
+    cy.notExist(modalSelector);
+    cy.checkConstructorIsFilled(constructorSelector);
   });
 });

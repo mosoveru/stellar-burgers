@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import reducer, { getOrders } from './OrdersSlice';
+import reducer, { getOrders, initialState } from './OrdersSlice';
 import { feed } from './TestingData';
 
 beforeAll(() => {
@@ -16,13 +16,6 @@ afterAll(() => {
 });
 
 describe('Тест OrdersSlice', () => {
-  const initialState = {
-    feedOrders: [],
-    total: 0,
-    totalToday: 0,
-    isGettingOrders: false
-  };
-
   test('Тест вызова экшена getOrders', () => {
     const store = configureStore({
       reducer: {

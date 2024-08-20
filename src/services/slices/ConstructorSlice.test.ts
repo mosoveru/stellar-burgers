@@ -3,18 +3,12 @@ import {
   addIngredient,
   removeIngredient,
   moveIngredient,
-  clearConstructor
+  clearConstructor,
+  initialState
 } from './ConstructorSlice';
 import { bunIngredient, sause, ingredient } from './TestingData';
 
 describe('Тест ConstructorSlice', () => {
-  const initialState = {
-    constructorOrder: {
-      bun: null,
-      ingredients: []
-    }
-  };
-
   test('Обработка экшена добавления ингридиента', () => {
     const newState = reducer(initialState, addIngredient(bunIngredient));
 

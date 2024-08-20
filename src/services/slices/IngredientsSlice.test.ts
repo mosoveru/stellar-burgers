@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { bunIngredient, sause, ingredient } from './TestingData';
-import reducer, { getIngredients } from './IngredientsSlice';
+import reducer, { getIngredients, initialState } from './IngredientsSlice';
 import { error } from 'console';
 
 beforeAll(() => {
@@ -21,14 +21,6 @@ afterAll(() => {
 });
 
 describe('Тест IngredientsSlice', () => {
-  const initialState = {
-    ingredients: [],
-    bun: [],
-    sauce: [],
-    main: [],
-    isGettingIngredients: false
-  };
-
   const expectedResult = {
     ingredients: [bunIngredient, sause, ingredient],
     bun: [bunIngredient],
