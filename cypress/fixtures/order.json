@@ -1,0 +1,18 @@
+{
+  "success": true,
+  "name": "Заказ для большого босса",
+  "order": {
+    "_id": "BigBossOrderID",
+    "status": "Выполнен",
+    "name": "Заказ для большого босса",
+    "createdAt": "2024-08-17T08:08:11.839Z",
+    "updatedAt": "2024-08-17T08:08:12.297Z",
+    "number": 777,
+    "ingredients": [
+      "643d69a5c3f7b9001cfa093c",
+      "643d69a5c3f7b9001cfa0941",
+      "643d69a5c3f7b9001cfa0942",
+      "643d69a5c3f7b9001cfa093c"
+    ]
+  }
+}
